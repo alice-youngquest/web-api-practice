@@ -25,3 +25,14 @@ test.cb('getUsers gets all users', function (t) {
     })
 })
 
+test.cb('getUser gets one user', function (t) {
+  request(app)
+    .get('/users/99904')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end(function(err, res) {
+      if (err) throw err
+      t.deepEqual({id: 99904, name: 'Dilapidated Duck', email: 'duck@example.org'}, res.body)
+      t.end()
+    })
+})

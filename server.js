@@ -17,4 +17,3 @@ server.use(bodyParser.urlencoded({ extended: true }))
 
 // Routes
 server.use('/users', users)
-
