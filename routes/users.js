@@ -23,4 +23,15 @@ router.get ('/:id', function (req, res) {
     })
 })
 
+router.post('/new', function (req, res) {
+  var data = req.body
+  db.addUser(data.name)
+    .then(function (users) {
+      res.send({users: users})
+    })
+    .catch(function (err) {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
 module.exports = router

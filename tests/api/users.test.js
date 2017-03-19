@@ -36,3 +36,15 @@ test.cb('getUser gets one user', function (t) {
       t.end()
     })
 })
+
+test.cb('addUser adds one user', function (t) {
+  request(app)
+    .get('/users')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end(function(err, res) {
+      if (err) throw err
+      t.is(26, res.body.users.length + 1)
+      t.end()
+    })
+})
