@@ -33,4 +33,20 @@ router.post('/new', function (req, res) {
     })
 })
 
+// /users/99902
+// /users/:id
+router.put('/:id', function (req, res) {
+  var id = req.params.id
+  var userUpdate = req.body
+  db.updateUser(id, userUpdate, req.app.get('knex'))
+    .then(function (result) {
+      console.log('updated',result)
+      res.json(result[0])
+    })
+    .catch(function (err) {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
+
 module.exports = router

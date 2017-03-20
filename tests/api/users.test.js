@@ -46,8 +46,23 @@ test.cb('addUser adds one user', function (t) {
     .end(function(err, res) {
       if (err) throw err
         t.context.db('users').count().then(function (result) {
-          t.is(27, result[0]['count(*)'])
+          t.is(27, result[0]['count(*)']+1)
           t.end()
         })
+    })
+})
+
+test.cb('updateUser updates selected user', function (t) {
+  request(app)
+    .put('/users/99902')
+    .send({name: 'mona', email: 'monaloca@lindo.com'})
+    .end(function(err, res) {
+      if (err) throw err
+
+      var actualRecordAfterUpdate = res.body // something ?
+      var expected = {id: 99902, name: 'mona', email: 'monaloca@lindo.com'}
+
+      t.deepEqual(actualRecordAfterUpdate, expected)
+      t.end()
     })
 })
