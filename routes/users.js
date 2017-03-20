@@ -16,7 +16,7 @@ router.get ('/', function (req, res) {
 router.get ('/:id', function (req, res) {
   db.getUser(req.params.id ,req.app.get('knex'))
     .then(function (users) {
-      res.send(users[0])
+      res.json(users[0])
     })
     .catch(function (err) {
       res.status(500).send('DATABASE ERROR: ' + err.message)
@@ -24,10 +24,9 @@ router.get ('/:id', function (req, res) {
 })
 
 router.post('/new', function (req, res) {
-  var data = req.body
-  db.addUser(data.name)
-    .then(function (users) {
-      res.send({users: users})
+  db.addUser(req.body, req.app.get('knex'))
+    .then(function (result) {
+      res.json(result[0])
     })
     .catch(function (err) {
       res.status(500).send('DATABASE ERROR: ' + err.message)

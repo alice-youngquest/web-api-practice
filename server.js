@@ -14,6 +14,7 @@ module.exports = server
 
 // Middleware
 server.use(bodyParser.urlencoded({ extended: true }))
+server.use(bodyParser.json())
 
 // Routes
 server.use('/users', users)
